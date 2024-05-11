@@ -8,6 +8,8 @@ spring:
           uri: http://127.0.0.1:8080
           predicates:
             - Path=/**
+          filters:
+            - AddRequestHeader=X-XSRF-Token, ValidToken
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
