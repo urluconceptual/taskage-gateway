@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: taskage-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: core
+          uri: http://127.0.0.1:8080
+          predicates:
+            - Path=/**
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowedMethods: "GET, POST, PUT, DELETE, OPTIONS"
+            allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Content-Length, TOKEN, Authorization"
+            allowCredentials: true
+            maxAge: 3600
+
+server:
+  port: 5001
+
+logging:
+  level:
+    root: debug
