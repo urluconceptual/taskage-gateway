@@ -10,10 +10,12 @@ spring:
             - Path=/**
 
       default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Origin
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
       globalcors:
         cors-configurations:
           "[/**]":
+            allowed-origins:
+              - http://localhost:3000
             allowedMethods: "GET, POST, PUT, DELETE, OPTIONS"
             allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Content-Length, TOKEN, Authorization"
             allowCredentials: true
