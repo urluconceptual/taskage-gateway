@@ -19,7 +19,7 @@ spring:
           filters:
             - AddRequestHeader=X-XSRF-Token, ValidToken
         - id: helper
-          uri: https://helper-service-url # to replace
+          uri: https://taskage-helper.onrender.com
           predicates:
             - Path=/helper/**
       default-filters:
