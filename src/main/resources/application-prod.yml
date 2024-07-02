@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: taskage-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: core-websocket
+          uri: https://core-service-url # to replace
+          predicates:
+            - Path=/core/ws/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AddRequestHeader=Upgrade, WebSocket
+            - AddRequestHeader=Connection,Upgrade
+        - id: core
+          uri: https://taskage-core.onrender.com
+          predicates:
+            - Path=/core/**
+          filters:
+            - AddRequestHeader=X-XSRF-Token, ValidToken
+        - id: helper
+          uri: https://helper-service-url # to replace
+          predicates:
+            - Path=/helper/**
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowed-origins:
+              - https://taskage-client.vercel.app
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowed-headers:
+              - Origin
+              - Content-Type
+              - Accept
+              - Authorization
+              - Access-Control-Request-Method
+              - Access-Control-Request-Headers
+              - Connection
+              - Upgrade
+            exposed-headers:
+              - Access-Control-Allow-Origin
+              - Access-Control-Allow-Credentials
+              - Access-Control-Allow-Headers
+              - Access-Control-Allow-Methods
+            allowCredentials: true
+            maxAge: 3600
+
+server:
+  port: 5001
+
+logging:
+  level:
+    root: debug
