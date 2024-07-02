@@ -5,7 +5,7 @@ spring:
     gateway:
       routes:
         - id: core-websocket
-          uri: https://core-service-url # to replace
+          uri: https://taskage-core.onrender.com
           predicates:
             - Path=/core/ws/**
           filters:
